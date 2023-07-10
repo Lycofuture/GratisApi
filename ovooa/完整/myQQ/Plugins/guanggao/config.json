@@ -1,0 +1,7 @@
+{"plugin_set":
+    {
+        "status":false,
+        "name":"广告检测",
+        "description":"正则匹配关键字，禁言+撤回+提醒管理员"
+    }
+}

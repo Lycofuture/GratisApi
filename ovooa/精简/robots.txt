@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /Game
+Allow: /
+Sitemap: http://ovooa.com/sitemap.xml

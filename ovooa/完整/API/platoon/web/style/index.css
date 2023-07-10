@@ -1,0 +1,31 @@
+@charset "utf-8";
+body{font-family:'Microsoft Yahei','\u5FAE\u8F6F\u96C5\u9ED1','\u5B8B\u4F53','SimSun'; color:#333333; 
+font-size:14px;margin:0;padding:0; line-height:200%;}
+h1,h2,h3{font-size:100%;font-weight:normal}
+h2{font-size:20px;font-weight:600;text-align:center; height:48px;line-height:48px; border-bottom:#333 solid 2px;}
+h3{font-weight:600;height:32px;line-height:32px; border-top:#333 solid 1px;}
+.none{display:none;}
+.pp_box{ width:750px; padding:30px; margin:0 auto; position:relative;}
+.pp_dl dt{width:150px;height:36px; line-height:36px; float:left; text-align:right;border-bottom:#f7f7f7 1px solid;}
+.pp_dl dd em{ display:inline-block;width:20px;}
+.pp_dl dd{margin-left:10px;height:36px; line-height:36px;border-bottom:#f7f7f7 1px solid;}
+input[type="text"]{height:24px}
+.btn{height:38px; width:158px; border:none; background:url(pp_btn.jpg) no-repeat;}
+.reset{height:38px; width:158px; border:none;background:url(pp_ret.jpg) no-repeat;}
+.help{display:inline-block;width:24px;height:24px;background:url(help.png) no-repeat; margin-left:16px; position:relative;}
+.help_zty{ position:absolute; left:24px;top:0; width:250px; border:#dedede 4px solid; border-radius:5px; padding:12px; background:#fff; color:#C66; line-height:200%}
+.hide{display:none;}
+.rebtn{ text-align:center; padding-top:20px; border-top:1px solid #333;}
+.my_modal_bg{ position: fixed; background:rgba(0, 0, 0, 0.5)!important; filter:Alpha(opacity=.5); background:#000; display: none; top: 0; left: 0; bottom: 0; right: 0; z-index: 10;}
+/* 修改出生地默认插件样式 */
+#PoPy{ position: fixed !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; margin: auto; width:568px !important; height: 295px !important; }
+._citys { width: auto; display:block; border: 2px solid #eee; border-radius:3px; position: relative; background:#373d41}
+._citys span {position: fixed; left: 0; right: 0; top: 0; bottom: 0; text-indent: -300px; border:0 solid #56b4f8;border-radius: 3px; width: auto; height: auto; cursor: auto; text-align: left; overflow: hidden;color: #000; line-height: 15px;}
+.citySel,.AreaS{background-color: #17925c !important; color: #fff !important; }
+._citys0,._citys1 {position: relative; z-index: 1; }
+._citys0{ width: 100%; display: inline-block; border-bottom: 2px solid #17925c; padding: 0; margin: 0;border-top-left-radius: 3px; overflow: hidden; height: auto;}
+._citys0 li { display: inline-block; height: 38px; line-height: 38px; font-size: 15px; color: #888; width: 80px; text-align: center; cursor: pointer;float:left;}
+._citys1 { width: 100%; display: inline-block; padding: 5px 0 10px 0; min-height: 80px;}
+._citys1 a { width: 83px; height: 35px; display: inline-block; background-color:#282c2f; color:#dfe0e0; line-height: 35px; text-align: center; cursor: pointer; font-size: 14px; overflow: hidden; border-radius: 3px; margin: 5px 0 0 10px;}
+._citys1 a:hover {color: #fff; background-color: #17925c; }
+

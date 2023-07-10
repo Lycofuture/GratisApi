@@ -1,0 +1,128 @@
+@charset "utf-8";
+/*浏览器默认是16px em相对于父元素 rem相对于根元素*/
+html{
+	-webkit-text-size-adjust:100% !important;
+	text-size-adjust:100% !important;
+	-moz-text-size-adjust:100% !important;
+	-ms-text-size-adjust:100% !important;
+}
+@media only screen and (min-width: 320px) { html {font-size: 17.066666666666666px;!important}} 
+@media only screen and (min-width: 360px) { html {font-size: 19.2px;!important}} 
+@media only screen and (min-width: 375px) { html {font-size: 20px;!important}} 
+@media only screen and (min-width: 400px) { html {font-size: 21.33333333px;!important}}
+@media only screen and (min-width: 414px) {html {font-size: 22.08px !important;}} 
+@media only screen and (min-width: 440px) { html {font-size: 23.46666666666667px;!important}} 
+@media only screen and (min-width: 480px) { html {font-size: 25.6px;!important}} 
+@media only screen and (min-width: 520px) { html {font-size: 27.733333333333334px;!important}} 
+@media only screen and (min-width: 560px) { html {font-size: 29.866666666666667px;!important}}
+@media only screen and (min-width: 600px) { html {font-size: 32px;!important}}
+@media only screen and (min-width: 640px) { html {font-size: 34.13333333333333px;!important}}
+@media only screen and (min-width: 680px) { html {font-size: 36.266666666666666px;!important}}
+@media only screen and (min-width: 720px) { html {font-size: 38.4px;!important}}
+@media only screen and (min-width: 750px) { html {font-size: 40px;!important}}
+body{
+	font-family: 'Microsoft YaHei',"微软雅黑", 'Helvetica', "黑体",'Arial', 'Tahoma';
+    margin:0 auto; padding:0;
+    max-width: 760px;
+    min-width: 320px;
+	font-size: 0.8rem;
+	line-height: 1.6rem;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary {
+  display: block;
+}
+p,form,dl,dt,dd,ul{margin:0; padding:0}
+a {color:#333;text-decoration: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+a:active {color: #f90;}
+ol,ul,li,ul li,ol li{list-style:none;}
+em,i{font-style: normal;}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+	clear: both;
+}
+.ui-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ui-cells {
+	margin-top: .5rem;
+	background-color: #FFFFFF;
+	line-height: 1.5;
+	font-size: .8rem;
+	overflow: hidden;
+	position: relative;
+}
+.ui-cells:before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 1px;
+	border-top: 1px solid #D9D9D9;
+	-webkit-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transform: scaleY(0.5);
+	-ms-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+}
+.ui-cells:after {
+	content: " ";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 1px;
+	border-bottom: 1px solid #D9D9D9;
+	-webkit-transform-origin: 0 100%;
+	-ms-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+	-webkit-transform: scaleY(0.5);
+	-ms-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+}
+.ui-cells-title {
+	margin-top: .65rem;
+	margin-bottom: .65rem;
+	padding-left: .75rem;
+	padding-right: .75rem;
+	color: #000;
+	font-size: 1rem;
+}
+.ui-cells-tips {
+	color: #888;
+	font-size: .8rem;
+	margin-top: .25rem;
+	text-align: center;
+}
+.ui-cells-title + .ui-cells {
+	margin-top: 0;
+}
+.none{display:none;}
+.po_rel{ position: relative; }
+.po_abs{ position: absolute; }
+.dis_flex{ -webkit-display: flex; -moz-display: flex; -o-display: flex; -ms-flex:flex;display: flex; }
+.dis_center{ -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center;}
+.dis_bottom{ -webkit-align-items: flex-end; align-items: flex-end; -webkit-justify-content: center; justify-content: center; }
+.dis_inblock{ display: inline-block; vertical-align: top; }
+.flex_flow_c{ -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; -webkit-flex-direction: column; -moz-flex-direction: column; flex-direction: column; }
+.flex{ -webkit-flex: 1; -moz-flex: 1; -o-flex: 1; -ms-flex:1;flex: 1; }
+.flex_wrap{ -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; flex-wrap: wrap;}
+.sub{margin-top:1rem;}
+.sub a,.href{ border: 0; height:2.4rem; line-height:2.4rem; width: 100%; display: block; background:#f60; border-radius: .3125rem; font-size: 0.9rem; color: #fff; text-align: center;}
+.href:hover,.href:active{ opacity: .9; color:#fff;}
+
+.col_r{ color:#F00;}
+.col_g{ color:#063;}
+.col_b{ color:#00F;}
+.col_y{ color:#c93;}
+

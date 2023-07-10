@@ -1,0 +1,80 @@
+<!doctype html>
+<html> 
+    <head> 
+        <title>更新日志 - 独角兽-API 一款好用，免费并且没有广告的接口调用平台</title> 
+        <meta charset="utf-8"> 
+        <style>
+        #percentageCounter{position:fixed; left:0; top:0; height:3px; z-index:99999; background-image: linear-gradient(to right, #E8EAF6,#C5CAE9,#9FA8DA,#7986CB,#5C6BC0,#3F51B5,#3949AB,#303F9F,#283593,#1A237E);border-radius:5px;}
+    </style> <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />--> 
+        <meta name="keywords" content="API,接口,免费调用,免费API,免费接口,独角兽,免费,免费对接,独角兽API,免费API,聚合API,QQAPI,SQ,QR,免费接口调用平台,免费接口"> 
+        <meta name="description" content=""> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> 
+        <meta name="generator" content="vue"> 
+        <meta name="revisit-after" content="3days"> 
+        <meta name="robots" content="all"> 
+        <div id="percentageCounter"></div> <!-- <link rel="stylesheet" href="./assets/css/index.css"/> --> 
+        <link rel="stylesheet" href="/assets/css/loadingr.css"> 
+        <link rel="stylesheet" href="./assets/css/mdui.min.css"> 
+        <link rel="stylesheet" href="./assets/css/style.css"> 
+        <link rel="stylesheet" href="./assets/css/mdclub.css"> 
+        <link rel="stylesheet" href="./assets/css/highlight.min.css"> 
+        <style id="style"></style>  
+    </head>
+    <?php require "header.html"; ?>
+    	<nav class="doc-toc mdui-text-color-theme-600" id="catalogue">
+    		<ul id="ul">
+    			<?php
+    				$data = json_decode(file_get_contents('http://ovooa.com/Data/api.php?type=getAllApi'), true)['data'];
+    				$array = [];
+    				foreach($data as $v){
+    					if(!isset($array[$v['time']])){
+    						$array[$v['time']][] = $v;
+    					}else{
+    						$array[$v['time']][] = $v;
+    					}
+    				}
+    				krsort($array);
+    				foreach($array as $k=>$val)
+    				{
+    					echo "				<li>\n";
+    					echo '				'.$k."\n";
+    					echo "					<ul>\n";
+    					foreach($val as $value){
+    						if($value['status'] == 1)
+    						{
+    							$url = '/?action=doc&id='.$value['id'];
+    							$desc = $value['desc'];
+    							echo "						<li><a mdui-tooltip=\"{$desc}\" href=\"{$url}\">{$value['name']}</a></li>\n";
+    						}else{
+    							$url = '#';
+    							$desc = '维护中';
+    							echo "						<li><a mdui-tooltip=\"{$desc}\" href=\"JavaScript:;\" onclick=\"mdui.snackbar('{$desc}')\">{$value['name']}</a></li>\n";
+    						}
+    						
+    					}
+    					echo "					</ul>\n";
+    					echo "				</li>\n";
+    				}
+    			?>
+    		</ul>
+    	</nav>
+    	<?php require "footer.html";?>
+    	<script src="./assets/js/jquery.min.js"></script>
+    	<script src="./assets/js/jquery.cookie.min.js"></script>
+    	<script src="./assets/js/sweetalert.min.js"></script>
+    	<script src="./assets/js/mdui.min.js"></script>
+    	<script src="./assets/js/index.js"></script>
+    	<script>
+    		$(window).scroll(function() {
+    			var a = $(window).scrollTop(),
+    			c = $(document).height(),
+    			b = $(window).height();
+    			scrollPercent = a / (c - b) * 100;
+    			scrollPercent = scrollPercent.toFixed(1);
+    			$("#percentageCounter").css({
+    				width: scrollPercent + "%"
+    			});
+    		}).trigger("scroll");
+    	</script>
+    </body>
+</html>

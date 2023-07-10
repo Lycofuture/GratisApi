@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+	<head>
+		<title>管理广告 -
+			<? echo $config['title']; ?>
+		</title>
+		<meta charset="utf-8">
+		<meta name="keywords" content="<?php echo $config['keywords'];?>">
+		<meta name="description" content="<?php echo $config['description'];?>">
+		<link rel="icon" href="<?php echo $config['favicon'];?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="./assets/css/mdui.min.css">
+		<link rel="stylesheet" href="./assets/css/style.css">
+		<link rel="stylesheet" href="./assets/css/mdclub.css">
+	</head>
+	<body>
+		<? require "header.html"; ?>
+		<div class="mc-nav" id="back">
+			<buttton class="back mdui-btn mdui-color-theme mdui-ripple">
+				<i class="mdui-icon mdui-icon-left material-icons">arrow_back</i> 返回 
+			</buttton>
+		</div>
+		<div id="advertising" class="mdui-container mdui-p-x-2">
+			<div class="mdui-table-fluid" v-if="advertising">
+				<table class="mdui-table">
+					<thead>
+						<tr>
+							<th>#ID</th>
+							<th style="width:120px;">名称</th>
+							<th>简介</th>
+							<th>点击次数</th>
+							<th>添加时间</th>
+							<th style="width:120px;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="mdui-table-row" v-for="advertising in advertising">
+							<td>{{ advertising.id }}</td>
+							<td style="width:120px;">{{ advertising.name }}</td>
+							<td>{{ advertising.description }}</td>
+							<td>{{ advertising.access }}</td>
+							<td>{{ advertising.time }}</td>
+							<td style="width:120px;">
+								<a class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '修改'}" :href="'?action=admin&page=edit_advertising&id='+advertising.id"><i class="mdui-icon material-icons mdui-text-color-theme-icon">edit</i></a>
+								<button class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '删除'}" @click="deleteAdvertising(advertising.id)">
+									<i class="mdui-icon material-icons mdui-text-color-theme-icon">delete</i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="mc-empty" v-else style="background-image: url('/assets/css/994575169312f0027615406d265202f2.png');">
+				<div class="title">
+					尚未任何广告
+				</div>
+				<div class="description">
+					添加广告后，这里就可以进行管理了
+				</div>
+			</div>
+		</div>
+		<!-- 搜索接口Dialog -->
+		<div id="search" class="mc-user-edit mdui-dialog">
+			<div class="mdui-dialog-title mdui-color-theme-a200 mdui-p-y-2">
+				<button class="mdui-btn mdui-btn-icon" mdui-dialog-close><i class="mdui-icon material-icons">close</i></button> 搜索广告
+			</div>
+			<div class="mdui-dialog-content mdui-p-x-3" style="margin-bottom:100px;">
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">搜索</label>
+					<input class="mdui-textfield-input" type="text" v-model="searchContent" @focus="focus" required/>
+					<div class="mdui-textfield-error">搜索内容不能为空</div>
+				</div>
+				<div v-if="searchResult">
+					<ul class="mdui-list">
+						<a class="mdui-list-item mdui-ripple" v-for="advertising in advertising" :href="'?action=admin&page=edit_advertising&id='+advertising.id">
+							<div class="mdui-list-item-content">
+								<div class="mdui-list-item-title">ID:{{ advertising.id }} {{ advertising.name }}</div>
+							</div>
+							<i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-a200">equalizer</i> {{ advertising.access }}
+						</a>
+					</ul>
+				</div>
+				<div class="mdui-text-center mdui-m-t-5" v-else>
+					没有搜到相关广告
+				</div>
+			</div>
+		</div>
+		<!-- 浮动搜索按钮 -->
+		<button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent" mdui-dialog="{target: '#search'}">
+			<i class="mdui-icon material-icons">search</i>
+		</button>
+		<!-- End 浮动搜索按钮 -->
+		<?php require "footer.html";?>
+		<script src="/assets/js/vue.js"></script>
+		<script src="./assets/js/sweetalert.min.js"></script>
+		<script>
+			let advertising = new Vue({
+				el: '#advertising',
+				data: {
+					advertising: [],
+				},
+				methods: {
+					deleteAdvertising: function(id) {
+						swal({
+								title: "确定删除该广告?",
+								text: "请注意数据删除后将不可恢复！",
+								icon: "warning",
+								buttons: true,
+								dangerMode: true,
+							})
+							.then((willDelete) => {
+								if (willDelete) {
+									$.ajax({
+										method: 'POST',
+										url: './Data/post.php',
+										data: {
+											type: 'del_advertising',
+											id: id
+										},
+										beforeSend: function() {
+											swal("删除中......", " ", {
+												icon: "info",
+												buttons: false
+											});
+										},
+										success: function(data) {
+											var code = JSON.parse(data).code;
+											var msg = JSON.parse(data).msg;
+											if (code == 0) {
+												swal(msg, "2秒后自动刷新页面......", {
+													icon: "success",
+													buttons: false
+												});
+												setTimeout(function() {
+													location.reload();
+												}, 2000);
+											} else {
+												swal(msg, " ", {
+													icon: "error",
+													buttons: false
+												});
+											}
+										}
+									});
+								}
+							});
+					}
+				},
+				created() {
+					fetch('./Data/api.php?type=getAllAdvertising')
+						.then(response => response.json())
+						.then(json => {
+							this.advertising = json.data;
+						})
+				}
+			});
+			let search = new Vue({
+				el: '#search',
+				data: {
+					advertising: [],
+					searchContent: '',
+					searchResult: true,
+					msg: false
+				},
+				methods: {
+					focus: function() {
+						this.code = true;
+					}
+				},
+				watch: {
+					searchContent: function(val) {
+						if (val) {
+							fetch('./Data/api.php?type=searchAdvertising&s=' + val)
+								.then(response => response.json())
+								.then(json => {
+									if (json.code == 0) {
+										this.searchResult = true;
+										this.advertising = json.data;
+									} else {
+										this.searchResult = false;
+										this.msg = json.msg;
+									}
+								});
+						} else {
+							this.searchResult = true;
+							this.advertising = [];
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

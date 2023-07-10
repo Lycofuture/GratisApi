@@ -1,0 +1,135 @@
+
+
+
+开启听歌
+A:$访问 http://ovooa.com/API/17tg/?format=open&qq=%Robot%&skey=%Skey%&group=%群号%$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+关闭听歌
+A:$访问 http://ovooa.com/API/17tg/?format=close&qq=%Robot%&skey=%Skey%&group=%群号%$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+歌曲列表
+A:$访问 http://ovooa.com/API/17tg/?format=delete&qq=%Robot%&skey=%Skey%&group=%群号%&ts=10$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+$访问 http://ovooa.com/API/17tg/?format=delete&qq=%Robot%&skey=%Skey%&group=%群号%&ts=10&type=text$
+$写 卡特/%群号%/页码变动 %QQ% 歌曲列表$
+$写 卡特/%群号%/页数/歌曲列表 %QQ% 1$
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+删除 ?([0-9]+)
+A:$访问 http://ovooa.com/API/17tg/?format=delete&qq=%Robot%&skey=%Skey%&group=%群号%&b=%括号1%$
+状:@A[code]
+如果:%状%==1
+±img=@A[data][cover]±
+@A[text]
+返回
+如果尾
+如果:%状%!=1
+@A[text]\r
+状态码：%状%
+返回
+如果尾
+
+
+加歌 ?(.+)
+A:$访问 http://ovooa.com/API/17tg/?format=search&qq=%Robot%&skey=%Skey%&group=%群号%&msg=%括号1%&ts=10$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+$访问 http://ovooa.com/API/17tg/?format=search&qq=%Robot%&skey=%Skey%&group=%群号%&msg=%括号1%&ts=10&type=text$
+$写 卡特/%群号%/加歌 %QQ% %括号1%$
+$写 卡特/%群号%/页码变动 %QQ% 一起听歌$
+$写 卡特/%群号%/页数/一起听歌 %QQ% 1$
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+切换 ?([0-9]+)
+A:$访问 http://ovooa.com/API/17tg/?format=change&qq=%Robot%&skey=%Skey%&group=%群号%&b=%括号1%&type=tex$
+如果:@A[code]==1
+±img=@A[data][cover]±
+已切换至[@A[data][music]]\n
+预计播放时长：@A[data][time]
+返回
+如果尾
+@A[text]
+
+
+
+
+
+听歌人数 ?([0-9]+)?
+A:$访问 http://ovooa.com/API/17tg/?format=Uinnum&qq=%Robot%&skey=%Skey%&group=%群号%&ts=10&p=%括号1%&type=tex$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+$访问 http://ovooa.com/API/17tg/?format=Uinnum&qq=%Robot%&skey=%Skey%&group=%群号%&ts=10&p=%括号1%&type=text$
+$写 卡特/%群号%/页数/听歌人数 %QQ% 1$
+$写 卡特/%群号%/页码变动 %QQ% 听歌人数$
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+添加 ?([0-9]+)
+B:$读 卡特/%群号%/加歌 %QQ% 0$
+Y:$读 卡特/%群号%/页数/一起听歌 %QQ% 1$
+A:$访问 http://ovooa.com/API/17tg/?format=search&qq=%Robot%&skey=%Skey%&group=%群号%&msg=%B%&b=%括号1%&p=%Y%&ts=10$
+状:@A[code]
+图:@A[data][cover]
+如果:%B%==0
+返回
+如果尾
+如果:%状%==1
+±img=%图%±
+@A[text]\n
+播放时长：@A[data][time]
+返回
+如果尾
+如果:%状%!=1
+@A[text]\r
+状态码：%状%
+返回
+如果尾
+

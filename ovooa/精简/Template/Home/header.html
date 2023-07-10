@@ -1,0 +1,161 @@
+<div class="fan-loding"> 
+    <div class="la-ball-climbing-dot la-dark la-3x">
+    	<div></div>
+    	<div></div>
+    	<div></div>
+    </div> 
+</div>
+<body class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-indigo" id="top">
+    <header class="mdui-appbar-fixed mdui-appbar mdui-color-indigo">
+        <div class="mdui-color-indigo mdui-toolbar">
+            <span style="border-radius: 100%" class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: '#main-drawer', swipe: true}"><i class="mdui-icon material-icons">menu</i></span>
+            <span class="mdui-typo-headline mdui-hidden-xs"  ><?php echo $config['title'];?></span>
+            <span class="mdui-typo-title" id="subTitle"  ><?php echo $config['subtitle']; ?></span>
+            <div class="mdui-toolbar-spacer"></div>
+            <button id="change_style" mdui-tooltip="{content: '夜间模式', position: 'bottom'}" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">brightness_4</i></button>
+           <button mdui-menu="{target: '#main-menu'}" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></button>
+            <ul class="mdui-menu" id="main-menu">
+                <li class="mdui-menu-item" mdui-dialog="{target: '#'}">
+                    <a href="https://jq.qq.com/?_wv=1027&amp;k=H7lWvPIy" class="mdui-ripple">
+                        <i class="mdui-menu-item-icon mdui-icon material-icons">person</i> 加入QQ群
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="mc-drawer mdui-drawer mdui-drawer-close" id="main-drawer">
+        <div class="mdui-card-media mdui-ripple mdui-ripple-white" style="border-radius: 0px">
+            <img id="background" src="/assets/images/background.png" alt="独角兽API" />
+            <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
+                <div class="mdui-card-primary" style="position:relative;">
+                    <div class="mdui-typo-title mdui-text-color-white drawer-title-text" >
+                        <span id="titleText">
+                            阁下，请稍等…
+                            <!--<?php echo $config['title'];?>-->
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mdui-list">
+            <a class="mdui-list-item mdui-ripple index" href="<?php echo $config['url'];?>">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe88a;</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple about" href="?action=about">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe88f;</i>
+                <div class="mdui-list-item-content">关于</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple update" href="?action=update">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe923;</i>
+                <div class="mdui-list-item-content">日志</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple friendlinks" href="?action=friendlinks">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe157;</i>
+                <div class="mdui-list-item-content">友人</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple looklookthis" href="?action=looklookthis">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe3f4;</i>
+                <div class="mdui-list-item-content">必看</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple" href="/pay/">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe227;</i>
+                <div class="mdui-list-item-content">打钱</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple advertisement" href="?action=advertisement">
+                <i class="mdui-list-item-icon mdui-icon material-icons">&#xe87b;</i>
+                <div class="mdui-list-item-content">广告</div>
+            </a>
+            <!-- <a class="mdui-list-item mdui-ripple online" href="/online/"> -->
+                <!-- <i class="mdui-list-item-icon mdui-icon material-icons">&#xe91c;</i> -->
+                <!-- <div class="mdui-list-item-content">在线版</div> -->
+            <!-- </a> -->
+        </div>
+        <div class="copyright mdui-p-x-2 mdui-p-y-1" style="position:absolute;bottom:0px;width:100%;font-size:13px;">
+            <p>
+                <?php if($config['copyright']){ echo $config['copyright'].'<br>';}?>
+                <?php 
+                if($config['icp']){ 
+                    if(strstr($_SERVER['HTTP_HOST'], 'lkaa')){
+                        echo str_replace('-4', '-3', $config['icp']);
+                    }else{
+                        echo str_replace('-3', '-4', $config['icp']);
+                    }
+                    echo '<br>';
+                }
+                ?> Powered by <a href="https://mdui.org" target="_blank">MDUI</a> &amp; <a href="https://mdclub.org" target="_blank">MDClub</a><br> 由Mufeng设计与编码❤️
+                <!-- 留个版权谢谢🙏 -->
+            </p>
+        </div>
+    </div>
+    <div id="login" class="mc-user-edit mdui-dialog" style="height: 400px;">
+        <div class="mdui-dialog-title mdui-color-white mdui-p-y-2">
+            <button class="mdui-btn mdui-btn-icon" mdui-dialog-close><i class="mdui-icon material-icons">close</i></button> 后台登录
+        </div>
+        <div class="mdui-dialog-content mdui-p-a-2">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">用户名</label>
+                <input class="mdui-textfield-input" type="text" id="username" />
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">密码</label>
+                <input class="mdui-textfield-input" type="password" id="password" />
+            </div>
+            <br>
+            <button class="mdui-btn mdui-color-theme-accent mdui-btn-raised mdui-ripple mdui-float-right" id="submit">登录</button>
+        </div>
+    </div>
+    <div class="mdui-dialog" id="loading">
+        <div class="mdui-m-y-2 mdui-m-x-1">
+            <center style="font-size:17px">加载中......</center>
+            <br>
+            <div class="mdui-progress">
+                <div class="mdui-progress-indeterminate"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var titleText = document.getElementById('titleText');
+        var MyDate = new Date();
+        var hour = MyDate.getHours();
+        var str = '阁下，请稍等…',
+            url = 'background.png';
+        var background = document.getElementById('background');
+        if(hour >= 23 && hour <= 2){
+            str = '阁下，午夜了，还不休息吗？';
+            url = 'background.png';
+        }else
+        if(hour < 23 && hour >= 22){
+            str = '阁下，是时候睡觉了呢！';
+            url = 'background.png';
+        }else
+        if(hour < 22 && hour >= 18){
+            str = '阁下，晚上好！';
+            url = 'background.png';
+        }else
+        if(hour < 18 && hour >= 13){
+            str = '阁下，下午好，有尝试美味的下午茶吗？';
+            url = 'wallhaven-9m7le1.png';
+        }else
+        if(hour < 13 && hour >= 12){
+            str = '阁下，午好，午饭食用了吗？';
+            url = 'wallhaven-9m7le1.png';
+        }else
+        if(hour < 12 && hour >= 8){
+            str = '阁下，上午好！';
+            url = 'wallhaven-dpm5dm.png';
+        }else
+        if(hour < 8 && hour >= 5){
+            str = '阁下！早上好！';
+            url = 'wallhaven-dpm5dm.png';
+        }else
+        if(hour < 5 && hour >= 3){
+            str = '阁下，不要告诉我你又要通宵！';
+            url = 'background.png';
+        }else{
+            str = '阁下 ，真的不准备睡觉吗？';
+            url = 'background.png';
+        }
+        titleText.innerHTML = '<span style="white-space: per-warp;" >'+str+'</span>';
+        background.src = '/assets/images/'+url;
+    </script>

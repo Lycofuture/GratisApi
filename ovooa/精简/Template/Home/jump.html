@@ -1,0 +1,42 @@
+<!doctype html>
+<html class="no-js" lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="renderer" content="webkit"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"> 
+        <title id="Jump">正在带你前往未知页面…</title> 
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"> 
+        <link rel="stylesheet" href="./assets/css/jump.css"> 
+        <link rel="stylesheet" href="./assets/css/mdui.min.css"> 
+        <link rel="stylesheet" href="./assets/css/style.css"> 
+        <style id="style"></style>
+    </head> 
+    <body style="direction: ltr;"> 
+        <div id="preloader"> 
+            <div id="ctn-preloader" class="ctn-preloader"> 
+                <div class="animation-preloader"> 
+                    <div class="spinner"></div> 
+                    <div class="txt-loading"> <span data-text-preloader="跳" class="letters-loading">跳</span> <span data-text-preloader="转" class="letters-loading">转</span> <span data-text-preloader="中" class="letters-loading">中</span> <span data-text-preloader="…" class="letters-loading">…</span> 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+        <script src="./assets/js/jquery.min.js"></script> 
+        <script src="./assets/js/mdui.min.js"></script> 
+        <script src="./assets/js/index.js"></script> 
+        <script>
+            var url = getRequestParam('url');
+            if(!url){
+                mdui.alert('跳转发送错误！');
+            	setTimeout(function(){
+            	    window.history.back(-1);
+            	},2000)
+            }else{
+            	mdui.snackbar('将在<font color="red">1秒</font>后跳转'+url+'请稍等');
+            	setTimeout(function(){
+            		window.location.href = url;
+            	},1000);
+            }
+        </script>
+    </body>
+</html>

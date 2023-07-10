@@ -1,0 +1,20 @@
+@charset "utf-8";
+@import url('ui.css');
+.header{background:#fff url(banner.jpg) no-repeat; background-size:cover; height:3.2rem; color:#fff;}
+.header h2{height:3.2rem; line-height:3.2rem; font-size:1.2rem; font-weight:bold; text-align:center; color:#fff;}
+.header h2 span{display:inline-block; float:left;}
+.header h2 .lf{text-align:left; padding-left:0.6rem;width:10%;}
+.header h2 .rt{text-align:right; padding-right:0.6rem;width:10%;}
+.header h2 .mid{text-align:center; width:80%;}
+.baseinfo{font-size:.8rem; background:#FFF8F0;}
+.baseinfo .on{ margin-bottom: .9375rem; }
+.hd{font-size:1.0625rem;color:#021212; height:2.2rem; line-height:2.2rem; background:#f7f7f7; position:relative;}
+.hd i{width:1.25rem;height:1.45rem; display:inline-block; vertical-align:middle; background: url(tit_icon.png) no-repeat; background-size: 100%; margin:0 0.625rem;}
+.hd span{ position:absolute;right:1.2rem; font-size:0.8rem}
+.baseinfo .bd{}
+.baseinfo .bd .item{border-bottom:1px dotted #f7f7f7; font-size:.75rem;margin: 0 .6rem;}
+.baseinfo .bd .tit{ color:#888; padding: .4rem 0;}
+.baseinfo .bd .item .text{ padding: .4rem .75rem 0 0;}
+.qmpp{padding:.5rem; font-size:.8rem;}
+.qmpp td{width:25%; line-height:180%;}
+.footer{margin:1.2rem 0; text-align:center; font-size:0.8rem; color:#999;}

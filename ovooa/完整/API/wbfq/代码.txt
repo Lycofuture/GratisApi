@@ -1,0 +1,1 @@
+<script id="ilt"src="http://8.131.94.70/api/wbfq/k.js"key="你获取的key"></script>

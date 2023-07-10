@@ -1,0 +1,218 @@
+<?php
+/* 这是一个Api demo  文件需要755权限*/
+Header('Content-type: Application/Json; charset=utf-8');
+require '../../need.php';
+
+require ("../function.php"); // 引入函数文件
+addAccess();//调用统计函数
+addApiAccess(169); // 调用统计函数*/
+$Request = need::Request(); //获取所有get post请求;
+$url = isset($Request['url']) ? $Request['url'] : false; //获取返回格式 默认json
+$type = isset($Request['type']) ? $Request['type'] : 'image'; //获取返回格式 默认json
+new Website_snapshot(array('url'=>$url, 'type'=>$type));
+class Website_snapshot
+{
+	/* Api类 
+	* 守护更好的API
+	*/
+	private $info = array(); //储存请求数据
+	private $array = array(); //储存返回数据
+	private $Message; //储存返回文本
+	private $dir = __DIR__ . '/'; //本文件所在文件夹
+	private $class = __CLASS__; //本类类名
+	private $file = 'http://ovooa.com/API/Website_snapshot/cache/';
+	private $filetime = 10;
+	private $error = 0;
+	public function __construct(array $array)
+	{
+		/* php构造函数 类初始化时自动运行 */
+		foreach($array as $k=>$v)
+		{
+			/* for循环获取参数并赋值到类中使用 */
+			$this->info[$k] = $v;
+		}
+		$this->dir(__DIR__.'/cache/');
+		$this->parameterException(); //调用类中方法
+	}
+	private function parameterException() :  bool
+	{
+		/* 判断参数是否正常 */
+		$url = parse_url($this->info['url'], PHP_URL_HOST) ?: parse_url($this->info['url'], PHP_URL_PATH);
+		if(!$url)
+		{
+			$this->evaluation(array('code'=>-1, 'text'=>'请输入正确的网址'));
+			return false;
+		}
+		// $url = (preg_match('/^http/i', $url) ? $url : 'http://'.$url);
+		// print_r($url);exit;
+		// $this->info['url'] = $url;
+		if(file_exists(__DIR__.'/cache/'.md5($url).'.png'))
+		{
+			$this->evaluation(array('code'=>1, 'text'=>'获取成功', 'data'=>array('url'=>$this->file.md5($this->info['url']).'.png')), $this->file.md5($this->info['url']).'.png');
+			return true;
+		}
+		$this->info['url'] = $url;
+		$this->run(); //调用方法
+		return true;
+	}
+	private function delete() : bool
+	{
+		/* 删除已有参数 */
+		unset($this->array, $this->Message);
+		return true;
+	}
+	private function evaluation(array $array, $string = false) : bool
+	{
+		/* 输出数据 */
+		$string = $string ? $string : $array['text']; //判断$string是否存在
+		if($array['code'] != 1)
+		{
+			$imagick = New imagick();
+			$draw = New imagickdraw();
+			$draw->setfillcolor(New ImagickPixel('black'));
+			$draw->setfontsize(50);
+			$draw->setfont('../1.ttf');
+			$me = $imagick->queryFontMetrics($draw, $string);
+			$draw->annotation(0, 50, $string);
+			$imagick->Newimage($me['textWidth'], $me['textHeight'], 'white');
+			$imagick->drawimage($draw);
+			$imagick->setimageformat('png');
+			$imagick->writeImages(__DIR__.'/cache/'.md5($this->info['url']).'.png', true);
+			$imagick->destroy();
+		}
+		$this->delete(); //调用删除方法
+		$this->array = $array; //赋值
+		$this->Message = $string; //赋值
+		$this->result(); //输出内容 
+		return true;
+	}
+	private function run() : bool 
+	{
+		$this->error = ($this->error + 1);
+		// echo 'https://wordpress.com/mshots/v1/'.$this->info['url'];
+		$data = need::teacher_curl('https://wordpress.com/mshots/v1/'.$this->info['url'], [
+			'Header'=>[
+				'Host: wordpress.com',
+				'Connection: keep-alive',
+				'Pragma: no-cache',
+				'Cache-Control: no-cache',
+				'Upgrade-Insecure-Requests: 1',
+				'User-Agent: Mozilla/5.0 (Linux; Android 11; PCLM10 Build/RKQ1.200928.002;) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36',
+				'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+				'dnt: 1',
+				'X-Requested-With: mark.via',
+				'Sec-Fetch-Site: none',
+				'Sec-Fetch-Mode: navigate',
+				'Sec-Fetch-User: ?1',
+				'Sec-Fetch-Dest: document',
+				'Referer: https://wordpress.com/mshots/v1/ovooa.com',
+				'Accept-Encoding: gzip, deflate',
+				'Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
+			],
+			'ua'=>'Mozilla/5.0 (Linux; Android 11; PCLM10 Build/RKQ1.200928.002;) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36',
+			'refer'=>'https://wordpress.com/mshots/v1/http://ovooa.com',
+			'cookie'=>'landingpage_currency=USD; _hjSessionUser_227769=eyJpZCI6ImY5MDA4MTUxLThjYzItNWUzMC05ZTNkLTllMDI0NmYzOTYzNiIsImNyZWF0ZWQiOjE2NTE5NzM1MTQ2MzIsImV4aXN0aW5nIjp0cnVlfQ==; _clck=17cvodp|1|f31|0; _gcl_au=1.1.541523134.1660506661; smart-pixel-session={"hash_parameters":{},"id":"7b39459d-5d95-48f4-ac83-6d9763b92eca","last_action_ts":1660507085,"parameters":{},"start_ts":1651973514,"timers":{},"viewed_pages":17}; country_code=CN; _parsely_visitor={%22id%22:%22pid=51e6ca5d4362c71abb134dda1875c8e1%22%2C%22session_count%22:2%2C%22last_session_ts%22:1663995081541}; wpcom_locale=zh-cn; tk_ai=ndEjJuGB0Na7ev05d9uIXcQX; ref=wpcom-product-menu; _uetvid=a3e48b10ce6e11ecba11f36659f3973e; _ga_1H4VG5F5JF=GS1.1.1663995083.4.1.1663996358.0.0.0; _ga=GA1.2.1361633229.1651973513',
+			'GetCookie'=>true
+		]);
+		// print_r($data);exit;
+		if($this->error > 5)
+		{
+			$this->evaluation(array('code'=>-3, 'text'=>'别开玩笑了老哥~'));
+			return false;
+		} else if($data['code'] == 200) {
+			if($this->put(__DIR__.'/cache/'.md5($this->info['url']).'.png', $data['body']))
+			{
+				$this->evaluation(array('code'=>1, 'text'=>'获取成功', 'data'=>array('url'=>$this->file.md5($this->info['url']).'.png')), $this->file.md5($this->info['url']).'.png');
+				return true;
+			} else {
+				$this->evaluation(array('code'=>-2, 'text'=>'获取失败'));
+				return false;
+			}
+		} else if($data['code'] == 301 || $data['code'] == 302 || $data['code'] == 307) {
+			sleep(1);
+			$this->run();
+			return false;
+		} else {
+			$this->evaluation(array('code'=>-4, 'text'=>'被WP拉黑了'));
+			return false;
+		}
+		return true;
+	}
+	private function dir($path){
+		/* 判断文件夹是否存在，不存在则创建 */
+		$Array = explode('/', $path);
+		$paths = '';
+		unset($Array[(count($Array) -1)]);
+		foreach($Array as $v){
+			$paths .= $v.'/';
+		}
+		if(!is_dir($paths)){
+			mkdir($paths, 0755, true);
+		}
+		return;
+	}
+	private function put($path, $string)
+	{
+		/* 储存文件 */
+		$this->dir($path);
+		if(file_put_Contents($path, $string))
+		{
+			return true;
+		}
+		return false;
+	}
+	private function delfile($dir, $time){
+		if(is_dir($dir)) {
+			if($dh=opendir($dir)) {
+				while (false !== ($file = readdir($dh))) {
+					// $count = strstr($file,'duodu-')||strstr($file,'dduo-')||strstr($file,'duod-');
+					if($file!='.' && $file!='..') {
+						$fullpath=$dir.'/'.$file;
+						if(!is_dir($fullpath)) {
+							$filedate=filemtime($fullpath);
+							$minutes=round((time()-$filedate)/60);
+							if($minutes>$time) unlink($fullpath);
+							//删除文件
+						}
+					}
+				}
+			}
+		}
+		closedir($dh);
+		return true;
+	}
+	private function result() : bool
+	{
+		$info = $this->info;
+		$type = isset($info['type']) ? $info['type'] : 'json';
+		Switch($type)
+		{
+			case 'text':
+			need::send($this->Message, 'text');
+			break;
+			case 'json':
+			need::send($this->array, 'json');
+			break;
+			default:
+			Header('content-type: image/png;');
+			echo @file_get_contents(__DIR__.'/cache/'.md5($this->info['url']).'.png');
+			break;
+		}
+		return true;
+	}
+	public function __toString() : string
+	{
+		/* php魔术函数 直接echo类时调用 */
+		return json_encode($this, JSON_FORCE_OBJECT);
+	}
+	public function __destruct()
+	{
+		/* php析构函数 类运行结束时调用 */
+		if($this->array['code'] != 1 && file_exists(__DIR__.'/cache/'.md5($this->info['url']).'.png'))
+		{
+			unlink(__DIR__.'/cache/'.md5($this->info['url']).'.png');
+		}
+		$this->delfile(__DIR__.'/cache/', $this->filetime);
+	}
+
+}

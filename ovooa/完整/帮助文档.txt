@@ -1,0 +1,17 @@
+php版本：8.1最好。
+php扩展：fileInfo，imagemagick(imagick)，exif
+
+api模板：沐风编写
+
+文件讲解：
+	r.php=Redis.php 只是略有改动 一般用r.php，限制访问者访问次数，非常好用。
+	link.php：添加友链的api
+	data_api.php：宝塔定时任务10分钟访问一次，可以刷新访问记录的公告
+	api.php：访问可以获取一些日志
+	其他的不多说了
+
+
+目录讲解：
+	API/ 为存放的api文件。
+	其他没什么用
+

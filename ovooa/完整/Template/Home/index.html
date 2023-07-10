@@ -1,0 +1,425 @@
+<?php
+$host = $_SERVER;
+$url = $host['REQUEST_SCHEME']. '://'. $host['HTTP_HOST'];
+$port = $host['SERVER_PORT'];
+?>
+<!DOCTYPE html>
+<!--[if lt IE 10]><script>alert("您正在使用的浏览器版本过低，为了您的最佳体验，请先升级浏览器。");window.location.href="http://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href);</script><![endif]-->
+<html lang="zh-CN">
+<head>
+	<style>
+		#percentageCounter{position:fixed; left:0; top:0; height:3px; z-index:99999; background-image: linear-gradient(to right, #E8EAF6,#C5CAE9,#9FA8DA,#7986CB,#5C6BC0,#3F51B5,#3949AB,#303F9F,#283593,#1A237E);border-radius:5px;}
+	</style>
+	<meta charset="utf-8">
+	<title>
+	   <?php echo $config['title'];?>
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />-->
+	<meta name="description" itemprop="description" content="<?php echo $config['description']; ?>" />
+	<meta name="generator" content="vue"/>
+	<meta name="revisit-after" content="3days" />
+	<meta name="robots" content="all" />
+	<div id="percentageCounter"></div>
+	<meta name="keywords" content="<?php echo $config['keywords']; ?>" />
+	<meta itemprop="name" content="<?php echo $config['title']; ?>" />
+	<meta itemprop="image" content="/assets/images/background.png" />
+	<link rel="icon" href="<?php echo '/'.$config['favicon']; ?>" />
+	<link rel="stylesheet" href="/assets/css/jump.css" />
+	<!-- <script src="/assets/js/loadingr.js"></script> -->
+	<link rel="stylesheet" href="/assets/css/mdui.min.css" />
+	<link rel="stylesheet" href="/assets/css/mdclub.css" />
+	<link rel="stylesheet" href="/assets/css/style.css" />
+	<link rel="stylesheet" href="/assets/css/loadingr.css" />
+	<style id="style"></style>
+	<style type="text/css">
+		.wrapper {
+			text-align: center;
+		}
+		.wrapper .line {
+			width: 20%;
+			display: inline-block;
+			border: 0.4px solid #ddd;
+			vertical-align: middle;
+		}
+		.wrapper .content {
+			color: #ccc;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<?php require "header.html"; ?>
+<marquee behavior="scroll" direction="left"><?php echo file_get_contents('api.txt'); ?></marquee>
+<?php require "http.php"; cookie_http(); ?>
+<!-----------
+	━━━━━┒
+	┓┏┓┏┓┃
+	┛┗┛┗┛┃ \🐶/<-你
+	┓┏┓┏┓┃  /
+	┛┗┛┗┛┃ノ)
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃ 
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃ 
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃ 
+	┛┗┛┗┛┃
+	┓┏┓┏┓┃
+	┃┃┃┃┃┃
+	┻┻┻┻┻┻
+-->
+<div class="mdui-container mdui-p-x-2" id="main">
+	<!-- 展示所有接口 -->
+	<div id="app">
+		<div class="mdui-container" v-if="RandAdvertise.url" id="Advertise">
+			<div class="mdui-row">
+				<div class="mdui-col-sm-6 mdui-col-md-4">
+					<div class="mdui-card">
+						<div class="mdui-card-header">
+							<img class="mdui-card-header-avatar" :src="RandAdvertise.logo"/>
+							<div class="mdui-card-header-title">{{ RandAdvertise.name }}</div>
+							<div class="mdui-card-header-subtitle">{{ RandAdvertise.description }}</div>
+						</div>
+					<!--
+						<div class="mdui-card-media">
+							<img :src="RandAdvertise.logo" />
+						</div>
+						<div class="mdui-card-primary">
+							<div class="mdui-card-primary-title">{{ RandAdvertise.name }}</div>
+							<div class="mdui-card-primary-subtitle">{{ RandAdvertise.description }}</div>
+						</div>
+					-->
+						<div class="mdui-card-actions">
+							<button class="mdui-btn mdui-ripple mdui-ripple-white mdui-text-color-theme-accent" @click="Advertise(RandAdvertise.id)">前往查看</button>
+							<button class="mdui-btn mdui-ripple mdui-ripple-white mdui-text-color-theme-accent" @click="endAdvertise">关闭广告</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mdui-row">
+			<div v-for="api in apis">
+				<div class="mdui-col-sm-6 mdui-col-md-4" v-if="api" content="api.name">
+					<div class="mdui-card mdui-hoverable mdui-m-y-2">
+						<div class="mdui-card-primary">
+							<div class="mdui-card-primary-title">
+								{{ api.name }}
+								<div class="mdui-badge mdui-color-green-400 mdui-text-color-white"
+									v-if="api.status == 1">正常</div>
+								<div class="mdui-badge mdui-color-red-700 mdui-text-color-white"
+									v-else-if="api.status == 0">维护</div>
+								<div class="mdui-badge mdui-color-yellow-700 mdui-text-color-white" v-else>未知状态</div>
+								<button class="mdui-btn mdui-btn-icon mdui-float-right"
+									mdui-dialog="{target:'.feedback_dialog'}" mdui-tooltip="{content: 'feedback'}"
+									@click="getApiInfo(api.id)"><i
+										class="mdui-icon mdui-text-color-theme-icon material-icons">feedback</i></button>
+							</div>
+							<div class="mdui-card-primary-subtitle" style="font-size:12px;"><i
+									class="mdui-icon material-icons" style="font-size:12px;">equalizer</i>累计调用：{{
+								api.access }}次</div>
+						</div>
+						<div class="mdui-card-content">{{ api.desc }}</div>
+						<div class="mdui-card-actions">
+							<a class="mdui-btn mdui-ripple mdui-text-color-theme-accent mdui-float-right"
+								target="_blank" :href="'?action=doc&id='+api.id" v-if="api.status == 1">More</a>
+							<a class="mdui-btn mdui-ripple mdui-text-color-grey mdui-float-right"
+								href="javascript:mdui.alert('该接口正在维护中，不妨先去看看其他的吧！','提示');" v-else>维护中</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mc-empty" v-if="!apis"
+				style="background-image: url('assets/css/994575169312f0027615406d265202f2.png');">
+				<div class="title">
+					尚未任何接口
+				</div>
+				<div class="description">
+					添加接口后，将显示在这里
+				</div>
+			</div>
+		</div>
+		
+		<!-- 反馈Dialog -->
+		<div class="mc-user-edit mdui-dialog feedback_dialog">
+			<div class="mdui-dialog-title mdui-p-y-2">
+				<button class="mdui-btn mdui-btn-icon" mdui-dialog-close><i
+						class="mdui-icon material-icons">close</i></button> 正在反馈
+			</div>
+			<div class="mdui-dialog-content mdui-p-x-3 mdui-p-b-2">
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">反馈标题</label>
+					<input class="mdui-textfield-input" type="text" v-model="feedback.title" required />
+					<div class="mdui-textfield-error">反馈标题不能为空</div>
+				</div>
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">反馈内容</label>
+					<textarea class="mdui-textfield-input" rows="12" v-model="feedback.content"></textarea>
+				</div>
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">联系邮箱</label>
+					<input class="mdui-textfield-input" type="email" v-model="feedback.email" required />
+					<div class="mdui-textfield-error">联系邮箱格式不正确</div>
+				</div>
+				<br>
+				<button class="mdui-btn mdui-color-theme-accent mdui-btn-raised mdui-m-b-2" @click="feedbackSend"
+					id="submitFeedback" mdui-dialog-close>反馈</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 搜索接口Dialog -->
+	<div id="search" class="mc-user-edit mdui-dialog" style="height: 400px;">
+		<div class="mdui-dialog-title mdui-p-y-2">
+			<div class="mdui-valign">
+				<button class="mdui-btn mdui-btn-icon" style="margin:9px 9px 0 -10px" mdui-dialog-close><i
+						class="mdui-icon material-icons">close</i></button>
+				<div class="mdui-textfield mdui-textfield-floating-label mdui-float-left"
+					style="padding-right:10px;width:100%">
+					<input id="searchbox" class="mdui-textfield-input" type="text" v-model="searchContent"
+						@focus="focus" placeholder="请输入要搜索的接口名称" required />
+				</div>
+			</div>
+			<!-- <div class="mdui-list" id="searchRand"> -->
+				<!-- <div v-for="Rand in RandApi"> -->
+					<!-- <li class="mdui-list-item mdui-ripple"> -->
+						<!-- <a href="'?action=doc&id='+Rand.id"></a> -->
+						<!-- <div class="mdui-list-item-content">{{ Rand.name}}</div> -->
+					<!-- </li> -->
+				<!-- </div> -->
+			<!-- </div> -->
+		</div>
+		<div class="mdui-dialog-content mdui-p-x-2">
+			<div v-if="searchResult" style="min-height:200px;">
+				<ul class="mdui-list">
+					<a class="mdui-list-item mdui-ripple" v-for="api in apis" target="_blank"
+						:href="'?action=doc&id='+api.id">
+						<div class="mdui-list-item-content">
+							<div class="mdui-list-item-title">ID:{{ api.id }} {{ api.name }}</div>
+						</div>
+						<i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-a200">equalizer</i>
+						{{ api.access}}
+					</a>
+				</ul>
+			</div>
+			<div class="mdui-text-center mdui-m-t-2" v-else>
+				没有搜到相关接口
+			</div>
+		</div>
+	</div>
+		<div class="wrapper">
+			<span class="line"></span>
+			<span class="content">我也是有底线的（＞_＜）</span>
+			<span class="line"></span>
+		</div>
+	<!-- 浮动搜索按钮 -->
+	<button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent" mdui-dialog="{target: '#search'}" onclick="focusInput()">
+		<i class="mdui-icon material-icons">search</i>
+	</button>
+	<!-- End 浮动搜索按钮 -->
+</div>
+
+<?php require "footer.html";?>
+
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/js/jquery.cookie.min.js"></script>
+<script src="./assets/js/sweetalert.min.js"></script>
+<script src="./assets/js/mdui.min.js"></script>
+<script src="./assets/js/index.js"></script>
+<script src="./assets/js/vue.js"></script>
+<!-- <script> $('#style').html("HTML{-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);-ms-filter: grayscale(100%);-o-filter: grayscale(100%);filter: grayscale(100%);filter: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='… 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale);-webkit-filter: grey;filter: gray;}"); -->
+ </script>
+<script>
+	let app = new Vue({
+		el: '#app',
+		data: {
+			apis: [],
+			feedback: [
+				'id',
+				'name',
+				'title',
+				'content',
+				'email'
+			],
+			RandAdvertise: {},
+		},
+		methods: {
+			feedbackSend: function () {
+				fetch('./Data/post.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: 'type=add_feedback&api_id=' + this.feedback.id + '&api_name=' + encodeURIComponent(this.feedback.name) + '&title=' + encodeURIComponent(this.feedback.title) + '&content=' + encodeURIComponent(this.feedback.content) + '&email=' + encodeURIComponent(this.feedback.email)+'&time=' + Date.parse(new Date())
+				})
+					.then(response => response.json())
+					.then(json => {
+						mdui.snackbar(json.msg);
+					})
+			},
+			getApiInfo: function (id) {
+				$('#submitFeedback').attr('disabled', true);
+				fetch('./Data/api.php?type=getOneApi&id=' + id)
+					.then(response => response.json())
+					.then(json => {
+						this.feedback.id = json.data.id;
+						this.feedback.name = json.data.name;
+						$('#submitFeedback').attr('disabled', false);
+					})
+			},
+			Advertise: function(id) {
+				url = '/?action=ad&title=' + this.RandAdvertise.name + '&id=' + id;
+				mdui.snackbar({
+					'message': '感谢您点击广告',
+					'timeout': 1000
+				});
+				return setTimeout("!window.open(url)", 500);
+			},
+			endAdvertise: function() {
+				mdui.snackbar({
+					'message': '广告已关闭',
+					'timeout': 1000
+				});
+				$('#Advertise').remove();
+				return true;
+			},
+		},
+		created() {
+			fetch('./Data/api.php?type=getAllApi')
+				.then(response => response.json())
+				.then(json => {
+					this.apis = json.data;
+				})
+			fetch('./Data/api.php?type=getWebSetting')
+				.then(response => response.json())
+				.then(json => {
+					if (json.data.post && json.data.post_id != -1 && !$.cookie('post')) {
+						$.cookie('post', true, {
+							expires: -1
+						});
+						swal(json.data.post.title, json.data.post.content, {
+							icon: json.data.post.icon,
+							buttons: '确定'
+						}).then((value)=>{
+							swal({
+								'title': '是否加载音乐播放器？',
+								icon: false,
+								buttons: ['否', '是']
+							}).then((value)=>{
+								if(value){
+								   swal(`理论上播放器已经加载成功，如果显示不完全请刷新页面`);
+								   music();
+								}
+							});
+						});
+					}
+				})
+			fetch('./Data/api.php?type=getRandAdvertising')
+				.then(response=>response.json())
+				.then(json=>{
+					if(json.code == 0) {
+						this.RandAdvertise = json.data[0];
+					}
+				})
+		}
+	});
+
+	let search = new Vue({
+		el: '#search',
+		data: {
+			apis: [],
+			recommonds: [],
+			searchContent: '',
+			searchResult: true,
+			msg: false
+		},
+		methods: {
+		},
+		watch: {
+			searchContent: function (val) {
+				if (val) {
+					fetch('./Data/api.php?type=searchApi&s=' + val)
+						.then(response => response.json())
+						.then(json => {
+							if (json.code == 0) {
+								this.searchResult = true;
+								this.apis = json.data;
+							} else {
+								this.searchResult = false;
+								this.msg = json.msg;
+							}
+						});
+				} else {
+					this.searchResult = true;
+					this.apis = [];
+				}
+			}
+		}
+	});
+	
+	let RandApis = new Vue({
+		el: '#searchRand',
+		data: {
+			RandApi: [],
+		},
+		created() {
+			fetch('./Data/api.php?type=getRandApi')
+			.then(response => response.json())
+			.then(json => {
+				this.RandApi = json.data;
+			})
+		}
+	});
+</script>
+<script>
+$(window).scroll(function() {
+	var a = $(window).scrollTop(),
+	c = $(document).height(),
+	b = $(window).height();
+	scrollPercent = a / (c - b) * 100;
+	scrollPercent = scrollPercent.toFixed(1);
+	$("#percentageCounter").css({
+		width: scrollPercent + "%"
+	});
+}).trigger("scroll");
+</script>
+<script>
+var OriginTitile = document.title,titleTime;
+document.addEventListener("visibilitychange",
+function() {
+	if (document.hidden) {
+		
+		document.title = "页面已崩溃！点击恢复！";
+		clearTimeout(titleTime)
+	} else {
+		
+		document.title = "(/≧▽≦/)咦！又好了！ " + OriginTitile;
+		titleTime = setTimeout(function() {
+			document.title = OriginTitile
+		},
+		2000)
+	}
+});
+</script>
+		<div id="musicplayer"></div>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+ping: ｜whoami: Parameter string not correctly encoded

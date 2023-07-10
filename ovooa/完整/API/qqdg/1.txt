@@ -1,0 +1,68 @@
+{
+    "code": 0,
+    "ts": 1628564429850,
+    "start_ts": 1628564429828,
+    "urlReq": {
+        "code": 0,
+        "errmsg": "",
+        "data": {
+            "uin": "",
+            "retcode": 0,
+            "verify_type": 0,
+            "login_key": "",
+            "msg": "8.131.94.70",
+            "sip": [
+                "http://ws.stream.qqmusic.qq.com/",
+                "http://isure.stream.qqmusic.qq.com/"
+            ],
+            "thirdip": [
+                "",
+                ""
+            ],
+            "testfile2g": "C400003mAan70zUy5O.m4a?guid=668&vkey=0EF8E3A4F887DF62B2B96846EF9E27A2D2BFD3F16728D7549DC7D2CB75F8CB444844A2E1DB38C7BBCCFEA9746963D2B05822D1C46FCFE366&uin=&fromtag=3",
+            "testfilewifi": "C400003mAan70zUy5O.m4a?guid=668&vkey=0EF8E3A4F887DF62B2B96846EF9E27A2D2BFD3F16728D7549DC7D2CB75F8CB444844A2E1DB38C7BBCCFEA9746963D2B05822D1C46FCFE366&uin=&fromtag=3",
+            "midurlinfo": [
+                {
+                    "songmid": "003nm1hU2KxciZ",
+                    "filename": "C400002aGyy32MduME.m4a",
+                    "purl": "C400002aGyy32MduME.m4a?guid=668&vkey=795B3A2311FF8B1A06FB384D08F31DBC339C435C8729242BE82781E5071B667CBE0C5351A882DA60FF9AC6FFC51AC9D3B534259858DB8430&uin=&fromtag=38",
+                    "errtype": "",
+                    "p2pfromtag": 0,
+                    "qmdlfromtag": 0,
+                    "common_downfromtag": 0,
+                    "vip_downfromtag": 0,
+                    "pdl": 0,
+                    "premain": 0,
+                    "hisdown": 0,
+                    "hisbuy": 0,
+                    "uiAlert": 0,
+                    "isbuy": 0,
+                    "pneedbuy": 0,
+                    "pneed": 0,
+                    "isonly": 0,
+                    "onecan": 0,
+                    "result": 0,
+                    "tips": "",
+                    "opi48kurl": "",
+                    "opi96kurl": "",
+                    "opi192kurl": "",
+                    "opiflackurl": "",
+                    "opi128kurl": "",
+                    "opi192koggurl": "",
+                    "wififromtag": "",
+                    "flowfromtag": "",
+                    "wifiurl": "",
+                    "flowurl": "",
+                    "vkey": "795B3A2311FF8B1A06FB384D08F31DBC339C435C8729242BE82781E5071B667CBE0C5351A882DA60FF9AC6FFC51AC9D3B534259858DB8430",
+                    "opi30surl": "",
+                    "ekey": "",
+                    "auth_switch": 17413891,
+                    "subcode": 0,
+                    "opi96koggurl": ""
+                }
+            ],
+            "servercheck": "51e096262718e9573d802ef6d389ff66",
+            "expiration": 80400
+        }
+    }
+}

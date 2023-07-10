@@ -1,0 +1,150 @@
+
+
+
+
+
+
+
+开启听歌
+A:$访问 http://lkaa.top/API/17tg/tursin.php?qq=%Robot%&skey=%Skey%&group=%群号%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+关闭听歌
+A:$访问 http://lkaa.top/API/17tg/tursio.php?qq=%Robot%&skey=%Skey%&group=%群号%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+歌曲列表
+A:$访问 http://lkaa.top/API/17tg/sonst.php?qq=%Robot%&skey=%Skey%&group=%群号%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+删除 ?([0-9]+)
+A:$访问 http://lkaa.top/API/17tg/sonst.php?qq=%Robot%&skey=%Skey%&group=%群号%&b=%括号1%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+加歌 ?(.*)
+A:$访问 http://lkaa.top/API/17tg/searc.php?qq=%Robot%&skey=%Skey%&group=%群号%&msg=%括号1%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+$写 卡特/%群号%/加歌 %QQ% %括号1%$
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+切换 ?([0-9]+)
+A:$访问 http://lkaa.top/API/17tg/chang.php?qq=%Robot%&skey=%Skey%&group=%群号%&b=%括号1%$
+状:@A[code]
+A:@A[text]
+如果:%QQ%!=%主人%
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+
+听歌人数 ?([0-9]+)?
+A:$访问 http://lkaa.top/API/17tg/numbe.php?qq=%Robot%&skey=%Skey%&group=%群号%&ts=10&p=%括号1%$
+状:@A[code]
+A:@A[text]
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+添加 ?([0-9]+)
+B:$读 卡特/%群号%/加歌 %QQ% 0$
+A:$访问 http://lkaa.top/API/17tg/searc.php?qq=%Robot%&skey=%Skey%&group=%群号%&msg=%B%&b=%括号1%$
+状:@A[code]
+A:@A[text]
+如果:%B%==0
+返回
+如果尾
+如果:%状%==1
+%A%
+返回
+如果尾
+如果:%状%!=1
+%A%\r
+状态码：%状%
+返回
+如果尾
+
+
+

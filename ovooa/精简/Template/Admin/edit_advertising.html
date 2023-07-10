@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<title>管理广告 -
+			<? echo $config['title']; ?>
+		</title>
+		<meta charset="utf-8">
+		<meta name="keywords" content="<?php echo $config['keywords'];?>">
+		<meta name="description" content="<?php echo $config['description'];?>">
+		<link rel="icon" href="<?php echo $config['favicon'];?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="./assets/css/mdui.min.css">
+		<link rel="stylesheet" href="./assets/css/style.css">
+		<link rel="stylesheet" href="./assets/css/mdclub.css">
+	</head>
+	<body>
+		<? require "header.html"; ?>
+		<div class="mc-nav" id="back">
+			<buttton class="back mdui-btn mdui-color-theme mdui-ripple">
+				<i class="mdui-icon mdui-icon-left material-icons">arrow_back</i> 返回 
+			</buttton>
+		</div>
+		<div id="edit_advertising" class="mdui-container mdui-p-x-2">
+			<div class="mdui-table-fluid" v-if="info">
+				<div class="mdui-card mdui-p-x-2" id="edit_api">
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">广告名称</label>
+					<input class="mdui-textfield-input" type="text" name="name" v-model="info.name" required/>
+				</div>
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">广告简介</label>
+					<textarea class="mdui-textfield-input" rows="5" type="text" name="description" maxlength="100" v-model="info.description" required></textarea>
+				</div>
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">广告链接</label>
+					<input class="mdui-textfield-input" type="text" name="url" v-model="info.url" required/>
+				</div>
+				<div class="mdui-textfield">
+					<label class="mdui-textfield-label">广告封面图</label>
+					<input class="mdui-textfield-input" type="text" name="logo" v-model="info.logo" required/>
+				</div>
+				<button class="mdui-fab mdui-fab-fixed mdui-color-theme-accent mdui-ripple" @click="update">
+					<i class="mdui-icon material-icons">check</i>
+				</button>
+			</div>
+		</div>
+		<?php require "footer.html";?>
+		<script src="/assets/js/vue.js"></script>
+		<script>
+			let edit_advertising = new Vue({
+				el: '#edit_advertising',
+				data: {
+					info: [],
+					websetting: []
+				},
+				methods: {
+					update: function(){
+						var id = getRequestParam('id');
+						this.info = {
+							'id': id, 
+							'name': this.info.name, 
+							'description': this.info.description, 
+							'url': this.info.url, 
+							'logo': this.info.logo
+						};
+						fetch('./Data/post.php',{
+							method:'POST',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							body: 'type=edit_advertising&data=' + JSON.stringify(this.info)
+						})
+							.then(response => response.json())
+							.then(json => {
+								mdui.snackbar(json.msg)
+							})
+							.catch(function(error){
+								mdui.snackbar(error.message)
+							})
+					}
+				},
+				created (){
+					var id = getRequestParam('id');
+					fetch('./Data/api.php?type=getOneAdvertising&id='+id)
+						.then(response => response.json())
+						.then(json => {
+							this.info = json.data
+						}
+					);
+					fetch('./Data/api.php?type=getWebSetting')
+						.then(response => response.json())
+						.then(json => {
+							this.websetting = json.data;
+						}
+					);
+				}
+			});
+		</script>
+	</body>
+</html>

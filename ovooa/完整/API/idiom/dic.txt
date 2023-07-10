@@ -1,0 +1,15 @@
+开始
+$访问 http://ovooa.com/API/idiom/?format=2&idiom=&uin=%群号%&type=text$
+
+
+我接 ?(.+)
+$访问 http://ovooa.com/API/idiom/?format=2&idiom=%括号1%&uin=%群号%&type=text$
+
+
+跳过
+$访问 http://ovooa.com/API/idiom/?format=6&idiom=%括号1%&uin=%群号%&msg=%括号1%&type=text$
+
+
+
+不玩了
+$访问 http://ovooa.com/API/idiom/?format=3&idiom=%括号1%&uin=%群号%$

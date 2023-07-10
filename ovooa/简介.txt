@@ -1,0 +1,17 @@
+后台位置是：?action=admin
+
+账号：独角兽
+密码：lkaa.top123456789
+
+
+
+不要再问我怎么用了，焯。
+配置环境：nginx，php8.1，Redis7.*，MySQL5.7，
+php扩展：imagick，fileInfo，exif，Redis
+🐧框架：my二开版本的本地版，hi的魔改版：xtbot，亲测可以登陆，配合httpapi，api我都写好了，不要再问了。
+httpapi的api使用方法：
+		/api.php?type=Skey&Token=你设置的&format=true(format=true就是单纯返回某个Cookie，没有就是返回整个段落Cookie。)。
+		type=qun.qq.com&Token=你设置的Token&format=
+
+
+不 要 再 问 了！！！！！！！

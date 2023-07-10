@@ -1,0 +1,119 @@
+<!doctype html>
+<html> 
+    <head> 
+        <title>广告位 -
+        <?php echo $config['title'];?>
+    </title> 
+        <meta charset="utf-8"> 
+        <style>
+        #percentageCounter{position:fixed; left:0; top:0; height:3px; z-index:99999; background-image: linear-gradient(to right, #E8EAF6,#C5CAE9,#9FA8DA,#7986CB,#5C6BC0,#3F51B5,#3949AB,#303F9F,#283593,#1A237E);border-radius:5px;}
+    </style> 
+        <meta name="keywords" content="<?php echo $config['keywords'];?>"> 
+        <meta name="description" content="<?php echo $config['description'];?>"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> 
+    </head> 
+    <body> 
+        <div id="percentageCounter"></div> 
+        <link rel="stylesheet" href="./assets/css/loadingr.css"> 
+        <!-- <script src="./assets/js/loading.js"></script> --> 
+        <link rel="stylesheet" href="./assets/css/mdui.min.css"> 
+        <link rel="stylesheet" href="./assets/css/style.css"> 
+        <link rel="stylesheet" href="./assets/css/mdclub.css"> 
+        <style id="style"></style>
+        <style type="text/css">
+        .wrapper {
+            text-align: center;
+        }
+        .wrapper .line {
+            width: 20%;
+            display: inline-block;
+            border: 0.4px solid #ddd;
+            vertical-align: middle;
+        }
+        .wrapper .content {
+            color: #ccc;
+            font-size: 14px;
+        }
+    </style> 
+    <?php require "header.html";?> 
+        <div class="mdui-container " id="ad"> 
+            <div v-if="info">
+                <div v-for="ad in info">
+                    <div class="mdui-card mdui-m-t-2 ">
+                        <div class="mdui-card-primary ">
+                            <a class="mdui-list-item mdui-ripple friendlinks" :href="'/?action=ad&title='+ad.name+'&id='+ad.id"> 
+                                <div class="mdui-list-item-content">
+                                    {{ad.name}} - {{ad.description}}
+                                </div>
+                            </a> 
+                            <div class="mdui-card-content"> 
+                                <div class="mdui-row mdui-text-center"> 
+                                    <div class="mdui-col-md-4 ">
+                                        <a :href="'/?action=ad&title='+ad.name+'&id='+ad.id">
+                                            <img :src="ad.logo" style="width:100%;height:100%" />
+                                        </a> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="mc-empty" v-if="!info"
+                style="background-image: url('/assets/css/994575169312f0027615406d265202f2.png');">
+                <div class="title">
+                    尚未任何广告
+                </div>
+                <div class="description">
+                    添加广告后，将显示在这里
+                </div>
+            </div>
+        </div>
+            <?php require "footer.html"; ?> 
+            <script src="./assets/js/jquery.min.js"></script> 
+            <script src="./assets/js/mdui.min.js"></script> 
+            <script src="./assets/js/index.js"></script> 
+            <script src="./assets/js/vue.js"></script> 
+            <script>
+                var OriginTitile = document.title,
+                titleTime;
+                document.addEventListener("visibilitychange",
+                function() {
+                    if (document.hidden) {
+                        document.title = "页面已崩溃！点击恢复！";
+                        clearTimeout(titleTime)
+                    } else {
+                        document.title = "(/≧▽≦/)咦！又好了！ " + OriginTitile;
+                        titleTime = setTimeout(function() {
+                            document.title = OriginTitile
+                        }, 2000)
+                    }
+                });
+                $(window).scroll(function() {
+                    var a = $(window).scrollTop(),
+                    c = $(document).height(),
+                    b = $(window).height();
+                    scrollPercent = a / (c - b) * 100;
+                    scrollPercent = scrollPercent.toFixed(1);
+                    $("#percentageCounter").css({
+                        width: scrollPercent + "%"
+                    });
+                }).trigger("scroll");
+                let ad = new Vue({
+                    el: '#ad', 
+                    data: {
+                        info: []
+                    }, 
+                    created() {
+                        fetch('/Data/api.php?type=getAllAdvertising')
+                        .then(response=>response.json()).then(json=>{
+                            this.info = json.data;
+                        });
+                    }
+                });
+            </script> 
+            <div class="wrapper"> <span class="line"></span> <span class="content">我也是有底线的（＞_＜）</span> <span class="line"></span> 
+            </div> 
+            <script src="./assets/js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+【注意】
+本PHPSDK适用于
+MyQQ机器人（https://www.myqqx.cn）
+配合 MyQQHTTPAPI插件 使用（https://daen.lanzoux.com/b01hry0za）
+
+
+【插件设置】
+回调：http://xxx.xxx.xxx.xxx/Req.php
+
+监听端口号默认8081，若有修改，到qqbot.class.php，修改$url = "http://127.0.0.1:8081/MyQQHTTPAPI";
+
+【API调用】
+使用便捷参数拼接调用API
+$MQ_Api_Api-> Api_QQBOT('【API名称】', [【参数数组】,]);
+
+例如：
+$MQ_Api->Api_QQBOT('Api_WithdrawMsg', [$MQ_robot, $MQ_fromID, $MQ_msgSeq, $MQ_msgID]);
+$MQ_Api->Api_QQBOT('Api_Shutup', [$MQ_robot, $MQ_fromID, $MQ_fromQQ, random_int(1, 600)]);
+
+【插件列表与开关】
+http://xxx.xxx.xxx.xxx/Plugins.php （未加密，建议修改文件名）
+
+【插件开发】
+1.\Plugins下新建文件夹
+2.新建Actions.php、config.json
+
+具体参考\Plugins\guanggao
+
+【定时任务】
+crontab.php
+
+调用：http://xxx.xxx.xxx.xxx/crontab.php?s=c-water
+
+【官方文档】
+API列表：https://www.myqqx.cn/5.扩展开发/1.开发相关/2.API列表.html
+常量列表：https://www.myqqx.cn/5.扩展开发/1.开发相关/3.常量列表.html
+消息回调：https://www.myqqx.cn/6.HTTPAPI/5.消息回调.html
+
+
+
+myQQ已经寄了，hiQQ本地版：
+?蓝奏云下?载地址：https://tanye.lanzoul.com/b017zfmij
+密码:xtbot
+酷喵，小栗子均有。
+设置中打开滑块算法。
+推荐首次扫码登录，然后选中，右键，点击编辑账号，修改密码。

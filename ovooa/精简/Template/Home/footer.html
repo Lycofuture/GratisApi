@@ -1,0 +1,16 @@
+<a class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-theme-accent" href="Javascript:goTop()" id="fabUp" style="margin-bottom:60px;">
+    <i class="mdui-icon material-icons">expand_less</i>
+</a>
+<!--
+<script>
+    function gotoTop(){
+        $('.scroll_top').click(function(){$('html,body').animate({scrollTop: '0px'}, 800);});
+    }
+</script>-->
+<?php
+if($config['end_script']){
+    echo '<script>';
+    echo $config['end_script'];
+    echo '</script>';
+}
+?>
